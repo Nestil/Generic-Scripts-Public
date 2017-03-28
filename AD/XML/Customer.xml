@@ -1,0 +1,33 @@
+
+<Customer>
+  <User Name="RKAdmin"> 
+    <Username>RKAdmin</Username>
+    <SamAccountName>RKAdmin</SamAccountName> 
+    <DisplayName>RKAdmin</DisplayName>
+  </User>
+    <User Name="MWAdmin"> 
+    <Username>MWAdmin</Username>
+    <SamAccountName>MWAdmin</SamAccountName> 
+    <DisplayName>MWAdmin</DisplayName>
+  </User>
+    <User Name="JLAdmin"> 
+    <Username>JLAdmin</Username>
+    <SamAccountName>JLAdmin</SamAccountName> 
+    <DisplayName>JLAdmin</DisplayName>
+  </User>
+    <User Name="TEAdmin"> 
+    <Username>TEAdmin</Username>
+    <SamAccountName>TEAdmin</SamAccountName> 
+    <DisplayName>TEAdmin</DisplayName>
+  </User>
+    <User Name="RUAdmin"> 
+    <Username>RUAdmin</Username>
+    <SamAccountName>RUAdmin</SamAccountName> 
+    <DisplayName>RUAdmin</DisplayName>
+  </User>
+    <User Name="EFAdmin"> 
+    <Username>EFAdmin</Username>
+    <SamAccountName>EFAdmin</SamAccountName> 
+    <DisplayName>EFAdmin</DisplayName>
+  </User>
+</Customer>    

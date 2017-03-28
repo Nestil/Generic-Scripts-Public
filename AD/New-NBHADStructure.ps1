@@ -14,6 +14,10 @@ $Netbiosname = $AD.AD.Netbios
 $FirstOU = $AD.AD.FirstOU
 $Nestilpwd = Read-Host "Skriv in lösenordet för nestiladmins"
 
+#Add Windows Search and Print Service tools
+Add-WindowsFeature -Name "Search-Service"
+Add-WindowsFeature -Name "RSAT-Print-Services" 
+
 #Add the OU Structure
 New-ADOrganizationalUnit -Name $FirstOU
 New-ADOrganizationalUnit -Name Groups -Path "OU=$FirstOU,DC=$Netbiosname,DC=local"
@@ -22,6 +26,11 @@ New-ADOrganizationalUnit -Name Nestil -Path "OU=$FirstOU,DC=$Netbiosname,DC=loca
 New-ADOrganizationalUnit -Name Users -Path "OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-ADOrganizationalUnit -Name Konsulter -Path "OU=$FirstOU,DC=$Netbiosname,DC=local"
 
+#Add Groups
+New-ADGroup -Name "Ekonomi" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
+New-ADGroup -Name "Ledning" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
+New-ADGroup -Name "TS Users" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
+New-ADGroup -Name "Gemensam" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
 
 #Lägg till alla NestilAdmins som Domain Admins
 #Version 1.1 MW/RK
