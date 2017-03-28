@@ -1,0 +1,92 @@
+CLASS MACHINE
+
+CLASS USER
+
+CATEGORY !!L_MicrosoftOfficeOutlook
+CATEGORY !!L_OutlookSocialConnector
+END CATEGORY
+CATEGORY !!L_OutlookOptions
+END CATEGORY
+CATEGORY !!L_Security
+CATEGORY !!L_SecurityFormsettings
+CATEGORY !!L_MiscAttachmentSettings
+END CATEGORY
+CATEGORY !!L_MiscCustomFormSettings
+END CATEGORY
+
+CATEGORY !!L_ProgrammaticSettings
+POLICY !!L_SimpleMapiSend
+KEYNAME Software\Policies\Microsoft\Office\14.0\Outlook\Security
+	PART !!L_SimpleMapiSend_Setting DROPDOWNLIST
+			VALUENAME PromptSimpleMAPISend
+	ITEMLIST
+			NAME !!L_PromptUser	VALUE NUMERIC 1 DEFAULT
+			NAME !!L_AutoApprove	VALUE NUMERIC 2
+			NAME !!L_AutoDeny	VALUE NUMERIC 0
+	END ITEMLIST
+			NOSORT
+	END PART
+	EXPLAIN !!L_SimpleMapiSend_Help
+	END POLICY
+POLICY !!L_SimpleMapiNameResolve
+KEYNAME Software\Policies\Microsoft\Office\14.0\Outlook\Security
+	PART !!L_SimpleMapiNameResolve_Setting DROPDOWNLIST
+			VALUENAME PromptSimpleMAPINameResolve
+	ITEMLIST
+			NAME !!L_PromptUser	VALUE NUMERIC 1 DEFAULT
+			NAME !!L_AutoApprove	VALUE NUMERIC 2
+			NAME !!L_AutoDeny	VALUE NUMERIC 0
+	END ITEMLIST
+			NOSORT
+	END PART
+	EXPLAIN !!L_SimpleMapiNameResolve_Help
+	END POLICY
+POLICY !!L_SimpleMapiOpenMessage
+KEYNAME Software\Policies\Microsoft\Office\14.0\Outlook\Security
+	PART !!L_SimpleMapiOpenMessage_Setting DROPDOWNLIST
+			VALUENAME PromptSimpleMAPIOpenMessage
+	ITEMLIST
+			NAME !!L_PromptUser	VALUE NUMERIC 1 DEFAULT
+			NAME !!L_AutoApprove	VALUE NUMERIC 2
+			NAME !!L_AutoDeny	VALUE NUMERIC 0
+	END ITEMLIST
+			NOSORT
+	END PART
+	EXPLAIN !!L_SimpleMapiOpenMessage_Help
+	END POLICY
+
+
+END CATEGORY
+END CATEGORY
+END CATEGORY
+END CATEGORY
+
+
+[Strings]
+L_MicrosoftOfficeOutlook="Microsoft Outlook 2010"
+L_OutlookSocialConnector="Outlook Social Connector"
+L_OutlookOptions="Outlook Options"
+L_Security="Security"
+L_SecurityFormsettings="Security Form Settings"
+L_MiscAttachmentSettings="Attachment Security"
+L_MiscCustomFormSettings="Custom Form Security"
+
+L_ProgrammaticSettings="Programmatic Security"
+
+L_SimpleMapiSend="Configure Simple MAPI sending prompt"
+L_SimpleMapiNameResolve="Configure Simple MAPI name resolution prompt"
+L_SimpleMapiOpenMessage="Configure Simple MAPI message opening prompt"
+
+L_SimpleMapiSend_Setting="Guard Behavior:"
+L_SimpleMapiNameResolve_Setting="Guard Behavior:"
+L_SimpleMapiOpenMessage_Setting="Guard Behavior:"
+
+L_PromptUser="Prompt User"
+L_AutoApprove="Automatically Approve"
+L_AutoDeny="Automatically Deny"
+
+L_SimpleMapiSend_Help="Specifies what happens when a program attempts to send mail programmatically using Simple MAPI. To set Exchange Security Form settings by using Group Policy instead, you must enable the Outlook Security Mode setting in \Security Form Settings\Microsoft Office Outlook 2010 Security and select the Use Outlook Security Group Policy check box."
+
+L_SimpleMapiNameResolve_Help="Specifies what happens when a program attempts to gain access to an Address Book using Simple MAPI. To set Exchange Security Form settings by using Group Policy instead, you must enable the Outlook Security Mode setting in \Security Form Settings\Microsoft Office Outlook 2010 Security and select the Use Outlook Security Group Policy check box."
+
+L_SimpleMapiOpenMessage_Help="Specifies what happens when a program attempts to gain access to a recipient field, such as To, using Simple MAPI. To set Exchange Security Form settings by using Group Policy instead, you must enable the Outlook Security Mode setting in \Security Form Settings\Microsoft Office Outlook 2010 Security and select the Use Outlook Security Group Policy check box."

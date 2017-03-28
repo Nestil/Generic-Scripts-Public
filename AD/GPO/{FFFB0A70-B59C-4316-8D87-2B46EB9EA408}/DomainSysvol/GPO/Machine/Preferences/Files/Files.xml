@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Files clsid="{215B2E53-57CE-475c-80FE-9EEC14635851}"><File clsid="{50BE44C8-567A-4ed1-B1D0-9234FE1F38AF}" name="Custom.bgi" status="Custom.bgi" image="1" changed="2016-11-03 13:02:56" uid="{89184A72-6626-47BA-929C-6C217492102A}" bypassErrors="1"><Properties action="R" fromPath="\\corema.local\SYSVOL\corema.local\scripts\bginfo\Custom.bgi" targetPath="C:\Program Files\BGInfo\Custom.bgi" readOnly="0" archive="1" hidden="0" suppress="1"/></File>
+	<File clsid="{50BE44C8-567A-4ed1-B1D0-9234FE1F38AF}" name="bginfo.exe" status="bginfo.exe" image="1" changed="2016-11-03 13:02:41" uid="{C3B91EBF-26FB-4103-A46E-9B468565E53D}" bypassErrors="1"><Properties action="R" fromPath="\\corema.local\SYSVOL\corema.local\scripts\bginfo\Bginfo.exe" targetPath="C:\Program Files\BGInfo\bginfo.exe" readOnly="0" archive="1" hidden="0" suppress="0"/></File>
+</Files>

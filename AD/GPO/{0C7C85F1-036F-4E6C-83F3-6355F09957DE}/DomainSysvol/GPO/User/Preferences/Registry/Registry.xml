@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RegistrySettings clsid="{A3CCFC41-DFDB-43a5-8D26-0FE8B954DA51}"><Registry clsid="{9CD4B2F4-923D-47f5-A062-E897DD1DAD50}" name="EditFlags" status="EditFlags" image="12" changed="2016-11-29 08:30:52" uid="{A6AA2EA6-C305-45BE-BBD5-9FE8B7F96B69}"><Properties action="U" displayDecimal="0" default="0" hive="HKEY_CLASSES_ROOT" key="HKEY_CLASSES_ROOT\FoxitReader.Document" name="EditFlags" type="REG_DWORD" value="00000100"/></Registry>
+	<Registry clsid="{9CD4B2F4-923D-47f5-A062-E897DD1DAD50}" name="EditFlags" status="EditFlags" image="17" changed="2016-11-29 08:29:59" uid="{E9D4D49E-CA67-4528-AB5F-D4C67A4EE9FE}"><Properties action="U" displayDecimal="0" default="0" hive="HKEY_CLASSES_ROOT" key="HKEY_CLASSES_ROOT\AcroExch.Document" name="EditFlags" type="REG_BINARY" value="00000100"/></Registry>
+</RegistrySettings>
