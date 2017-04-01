@@ -98,5 +98,3 @@ New-GPLink -Name "Mappa Enheter" -Target "$Path"
 
 New-GPLink -Name "Server Settings - RDP" -Target "OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Domain Server Settings - Default" -Target "OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
-
-#Create Shares
