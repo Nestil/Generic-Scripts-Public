@@ -2,40 +2,40 @@
 <AD>
     <Domainname>test.local</Domainname>
     <Netbios>TEST</Netbios>
-    <Domainmode>Win2012r2</Domainmode>
-    <Forestmode>Win2012r2</Forestmode>
-    <FirstOU>Nijiro</FirstOU>
+    <Domainmode>7</Domainmode>
+    <Forestmode>7</Forestmode> 
+    <FirstOU>TESTOU</FirstOU>
 
 <NestilUsers>
-  <User Name="RKAdmin"> 
-    <Username>RKAdmin</Username>
-    <SamAccountName>RKAdmin</SamAccountName> 
-    <DisplayName>RKAdmin</DisplayName>
+  <User Name="Admin1"> 
+    <Username>Admin1</Username>
+    <SamAccountName>Admin1</SamAccountName> 
+    <DisplayName>Admin1</DisplayName>
   </User>
-    <User Name="MWAdmin"> 
-    <Username>MWAdmin</Username>
-    <SamAccountName>MWAdmin</SamAccountName> 
-    <DisplayName>MWAdmin</DisplayName>
+    <User Name="Admin2"> 
+    <Username>Admin2</Username>
+    <SamAccountName>Admin2</SamAccountName> 
+    <DisplayName>Admin2</DisplayName>
   </User>
-    <User Name="JLAdmin"> 
-    <Username>JLAdmin</Username>
-    <SamAccountName>JLAdmin</SamAccountName> 
-    <DisplayName>JLAdmin</DisplayName>
+    <User Name="Admin3"> 
+    <Username>Admin3</Username>
+    <SamAccountName>Admin3</SamAccountName> 
+    <DisplayName>Admin3</DisplayName>
   </User>
-    <User Name="TEAdmin"> 
-    <Username>TEAdmin</Username>
-    <SamAccountName>TEAdmin</SamAccountName> 
-    <DisplayName>TEAdmin</DisplayName>
+    <User Name="Admin4"> 
+    <Username>Admin4</Username>
+    <SamAccountName>Admin4</SamAccountName> 
+    <DisplayName>Admin4</DisplayName>
   </User>
-    <User Name="RUAdmin"> 
-    <Username>RUAdmin</Username>
-    <SamAccountName>RUAdmin</SamAccountName> 
-    <DisplayName>RUAdmin</DisplayName>
+    <User Name="Admin5"> 
+    <Username>Admin5</Username>
+    <SamAccountName>Admin5</SamAccountName> 
+    <DisplayName>Admin5</DisplayName>
   </User>
-    <User Name="EFAdmin"> 
-    <Username>EFAdmin</Username>
-    <SamAccountName>EFAdmin</SamAccountName> 
-    <DisplayName>EFAdmin</DisplayName>
+    <User Name="Admin6"> 
+    <Username>Admin6</Username>
+    <SamAccountName>Admin6</SamAccountName> 
+    <DisplayName>Admin6</DisplayName>
   </User>
 </NestilUsers>    
 
