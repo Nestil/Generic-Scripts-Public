@@ -1,5 +1,5 @@
 [xml]$AD = Get-Content -Path C:\Repo\Generic-Scripts-Public\AD\XML\AD.xml
-[xml]$AD = Get-Content -Path C:\Repo\Generic-Scripts-Public\AD\XML\Customer.xml
+[xml]$Customer = Get-Content -Path C:\Repo\Generic-Scripts-Public\AD\XML\Customer.xml
 Import-Module ActiveDirectory
 $Netbiosname = $AD.AD.Netbios
 $FirstOU = $AD.AD.FirstOU
