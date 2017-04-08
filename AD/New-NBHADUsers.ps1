@@ -14,7 +14,7 @@ foreach ($User in $Users)
    -Name $User.Name `
    -Path $Path `
    -SamAccountName $User.SamAccountName `
-   -UserPrincipalName $User.SamAccountName+'@'+$AD.AD.Domainname `
+   -UserPrincipalName $Users.SamAccountName+'@'+$AD.AD.Domainname `
    -Givenname $User.GivenName `
    -Surname $User.Surname `
    -DisplayName $User.DisplayName `
