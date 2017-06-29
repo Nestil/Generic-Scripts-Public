@@ -14,7 +14,12 @@
     6. Sets ACL on all Shares. 
   
   .Notes
-    Author: Ron Kjernell - ron@nestil.se      .LINK    http://www.nestil.se      https://github.com/Nestil/#>
+    Author: Ron Kjernell - ron@nestil.se
+    
+  .LINK
+    http://www.nestil.se  
+    https://github.com/Nestil/
+#>
 
 # Check if disks are Online, if not bring them online
 $Diskstatus = Get-Disk | Where-Object –FilterScript {$_.OperationalStatus -Eq "Offline"}|foreach{
@@ -55,7 +60,7 @@ New-Item "E:\Ekonomi" -Type Directory
 New-Item "E:\Apps" -Type Directory
 New-Item "E:\Ledning" -Type Directory
 New-Item "E:\Users" -Type Directory
-New-Item "E:\Userfolders" -Type Directory
+New-Item "E:\Userprofiles" -Type Directory
 
 start-sleep 5
 #Create the Shares
@@ -69,7 +74,7 @@ New-SmbShare -Name "Apps$" -Path "E:\Apps" `
     -FullAccess "Everyone" 
 New-SmbShare -Name "Users$" -Path "E:\Users" `
     -FullAccess "Everyone" 
-New-SmbShare -Name "Userfolders$" -Path "E:\Userfolders" `
+New-SmbShare -Name "Userprofiles$" -Path "E:\Userprofiles" `
     -FullAccess "Everyone" 
 
 #Set ACL for Apps$
@@ -107,12 +112,12 @@ $ARUsers = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Use
 $ACLUsers.AddAccessRule($ARUsers)      
 Set-ACL "E:\Users\" $ACLUsers
 
-#Set ACL for Userfolders$
-$ACLUserfolders = Get-Acl "E:\Userfolders" 
-$ACLUserfolders.SetAccessRuleProtection($True, $True)
-$ARUserfolders = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Users","ReadAndExecute,ListDirectory,CreateDirectories,CreateFiles,Traverse","Allow")
-$ACLUserfolders.AddAccessRule($ARUserfolders)      
-Set-ACL "E:\Userfolders\" $ACLUserfolders
+#Set ACL for Userprofiles$
+$ACLUserprofiles = Get-Acl "E:\Userprofiles" 
+$ACLUserprofiles.SetAccessRuleProtection($True, $True)
+$ARUserprofiles = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Users","ReadAndExecute,ListDirectory,CreateDirectories,CreateFiles,Traverse","Allow")
+$ACLUserprofiles.AddAccessRule($ARUserprofiles)      
+Set-ACL "E:\Userprofiles\" $ACLUserprofiles
 
 
 
@@ -126,7 +131,7 @@ $Ledning = Get-ADGroup "Ledning"
 
 <# This part is a work in Progress...
 
-$HomeFolders = Get-ChildItem E:\Userfolders -Directory
+$HomeFolders = Get-ChildItem E:\Userprofiles -Directory
 foreach ($HomeFolder in $HomeFolders) {
     $Path = $HomeFolder.FullName
     $Acl = (Get-Item $Path).GetAccessControl('Access')

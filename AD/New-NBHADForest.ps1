@@ -4,7 +4,12 @@
     It reads information from C:\Repo\Generic-Scripts-Public\AD\XML\AD.xml
   
   .Notes
-    Author: Ron Kjernell - ron@nestil.se      .LINK    http://www.nestil.se      https://github.com/Nestil/#>
+    Author: Ron Kjernell - ron@nestil.se
+    
+  .LINK
+    http://www.nestil.se  
+    https://github.com/Nestil/
+#>
 
 #install RSAT-AD-Tools 
 $LogPath = “c:\Repo\Log\ADDSInstalllog.txt” 
@@ -17,9 +22,9 @@ Get-WindowsFeature | Where installed >>$LogPath
 #Deploy ADDS, DNS and GPMC 
 
 start-job -Name addFeature -ScriptBlock { 
-Add-WindowsFeature -Name “ad-domain-services” -IncludeAllSubFeature -IncludeManagementTools 
-Add-WindowsFeature -Name “dns” -IncludeAllSubFeature -IncludeManagementTools 
-Add-WindowsFeature -Name “gpmc” -IncludeAllSubFeature -IncludeManagementTools } 
+  Add-WindowsFeature -Name “ad-domain-services” -IncludeAllSubFeature -IncludeManagementTools 
+  Add-WindowsFeature -Name “dns” -IncludeAllSubFeature -IncludeManagementTools 
+  Add-WindowsFeature -Name “gpmc” -IncludeAllSubFeature -IncludeManagementTools } 
 Wait-Job -Name addFeature 
 Get-WindowsFeature | Where installed >>$LogPath
 
@@ -30,12 +35,12 @@ $domainname = $AD.AD.Domainname
 $netbiosName = $AD.AD.Netbios 
 Import-Module ADDSDeployment 
 Install-ADDSForest -CreateDnsDelegation:$false `
--DatabasePath “C:\Windows\NTDS” `
--DomainMode $AD.AD.Domainmode `
--DomainName $domainname `
--DomainNetbiosName $netbiosName `
--ForestMode $AD.AD.Forestmode -InstallDns:$true `
--LogPath “C:\Windows\NTDS” `
--NoRebootOnCompletion:$false `
--SysvolPath “C:\Windows\SYSVOL” `
--Force:$true
+  -DatabasePath “C:\Windows\NTDS” `
+  -DomainMode $AD.AD.Domainmode `
+  -DomainName $domainname `
+  -DomainNetbiosName $netbiosName `
+  -ForestMode $AD.AD.Forestmode -InstallDns:$true `
+  -LogPath “C:\Windows\NTDS” `
+  -NoRebootOnCompletion:$false `
+  -SysvolPath “C:\Windows\SYSVOL” `
+  -Force:$true

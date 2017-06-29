@@ -5,7 +5,14 @@
     Then links the GPO's to Correct OU
   
   .Notes
-    Author: Ron Kjernell - ron@nestil.se        Things to add in the future: Create the shares and set correct rights on these.         .LINK    http://www.nestil.se      https://github.com/Nestil/#>
+    Author: Ron Kjernell - ron@nestil.se
+    
+    Things to add in the future: Create the shares and set correct rights on these. 
+      
+  .LINK
+    http://www.nestil.se  
+    https://github.com/Nestil/
+#>
 
 
 [xml]$AD = Get-Content -Path C:\Repo\Generic-Scripts-Public\AD\XML\AD.xml
@@ -31,6 +38,7 @@ New-ADGroup -Name "Ekonomi" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$
 New-ADGroup -Name "Ledning" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-ADGroup -Name "TS Users" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-ADGroup -Name "Gemensam" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
+New-ADGroup -Name "SVC Accounts" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
 
 #Lägg till alla NestilAdmins som Domain Admins
 #Version 1.1 MW/RK
@@ -40,13 +48,13 @@ $Users = $AD.AD.NestilUsers.User
 foreach ($User in $Users)
 {
    New-ADUser `
-   -Name $User.UserName `
-   -Path $Path `
-   -SamAccountName  $User.SamAccountName `
-   -DisplayName $User.DisplayName `
-   -AccountPassword (ConvertTo-SecureString $Nestilpwd -AsPlainText -Force) `
-   -ChangePasswordAtLogon $true  `
-   -Enabled $true
+    -Name $User.UserName `
+    -Path $Path `
+    -SamAccountName  $User.SamAccountName `
+    -DisplayName $User.DisplayName `
+    -AccountPassword (ConvertTo-SecureString $Nestilpwd -AsPlainText -Force) `
+    -ChangePasswordAtLogon $false  `
+    -Enabled $true
    Add-ADGroupMember "Domain Admins" $User.SamAccountName;
 }
 
@@ -58,10 +66,10 @@ New-GPO -Name "Domain Server Settings - Default"
 New-GPO -Name "Server Settings - RDP"
 New-GPO -Name "TS Lockdown"
 New-GPO -Name "Folder Redirection"
-New-GPO -Name "Printers"
+# New-GPO -Name "Printers"
 New-GPO -Name "Outlook Fix"
-New-GPO -Name "Remove Printer Connections on Logoff"
-New-GPO -Name "Printerfix"
+# New-GPO -Name "Remove Printer Connections on Logoff"
+# New-GPO -Name "Printerfix"
 New-GPO -Name "Outlook Autodiscover Regfix"
 New-GPO -Name "Mappa Enheter"
 
@@ -72,8 +80,8 @@ Import-GPO -BackupGPOName "Domain Server Settings - Default" -TargetName "Domain
 Import-GPO -BackupGPOName "Server Settings - RDP" -TargetName "Server Settings - RDP" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
 Import-GPO -BackupGPOName "TS Lockdown"-TargetName "TS Lockdown" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
 Import-GPO -BackupGPOName "Outlook Fix" -TargetName "Outlook Fix" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
-Import-GPO -BackupGPOName "Remove Printerconnections on logoff" -TargetName "Remove Printer Connections on Logoff" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
-Import-GPO -BackupGPOName "Printer fix GPO" -TargetName "Printerfix" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
+# Import-GPO -BackupGPOName "Remove Printerconnections on logoff" -TargetName "Remove Printer Connections on Logoff" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
+# Import-GPO -BackupGPOName "Printer fix GPO" -TargetName "Printerfix" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
 Import-GPO -BackupGPOName "Outlook autodiscover reg fix" -TargetName "Outlook Autodiscover Regfix"  -Path C:\Repo\Generic-Scripts-Public\AD\GPO
 
 #Link GPO to OU's
@@ -85,15 +93,15 @@ New-GPLink -Name "Domain Server Settings - Default" -Target "OU=Domain Controlle
 New-GPLink -Name "Folder Redirection" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Outlook Fix" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Mappa Enheter" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
-New-GPLink -Name "Printerfix" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
+# New-GPLink -Name "Printerfix" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "TS Lockdown" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
-New-GPLink -Name "Remove Printer Connections on Logoff" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
-New-GPLink -Name "Printers" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
+# New-GPLink -Name "Remove Printer Connections on Logoff" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
+# New-GPLink -Name "Printers" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Outlook Autodiscover Regfix" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 
-New-GPLink -Name "Printerfix" -Target "$Path"
-New-GPLink -Name "Printers" -Target "$Path"
-New-GPLink -Name "Remove Printer Connections on Logoff" -Target "$Path"
+# New-GPLink -Name "Printerfix" -Target "$Path"
+# New-GPLink -Name "Printers" -Target "$Path"
+# New-GPLink -Name "Remove Printer Connections on Logoff" -Target "$Path"
 New-GPLink -Name "Mappa Enheter" -Target "$Path"
 
 New-GPLink -Name "Server Settings - RDP" -Target "OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"

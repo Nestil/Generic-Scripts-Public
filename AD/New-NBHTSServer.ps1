@@ -9,7 +9,8 @@ $Localmachine = hostname
 
 #Deploy Connection broker, Webaccessserver and sessionhost to your TS server 
 New-RDSessionDeployment -ConnectionBroker "$TSName.$Netbiosname.local" -WebAccessServer "$TSName.$Netbiosname.local" -SessionHost "$TSName.$Netbiosname.local"
-¨#Wait 5 minutes due to server restart
+
+#Wait 5 minutes due to server restart
 Start-Sleep 300
 
 #Add Licensingserver on this machine, Should be the DC in most cases
