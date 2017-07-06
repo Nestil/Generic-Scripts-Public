@@ -55,69 +55,69 @@ Set-ACL "E:\" $ACLAdmins
 Start-Sleep 3
 
 #Create folders
-New-Item "E:\Gemensam" -Type Directory
-New-Item "E:\Ekonomi" -Type Directory
-New-Item "E:\Apps" -Type Directory
-New-Item "E:\Ledning" -Type Directory
-New-Item "E:\Users" -Type Directory
-New-Item "E:\Userprofiles" -Type Directory
+New-Item "E:\Gemensam$" -Type Directory
+New-Item "E:\Ekonomi$" -Type Directory
+New-Item "E:\Apps$" -Type Directory
+New-Item "E:\Ledning$" -Type Directory
+New-Item "E:\Users$" -Type Directory
+New-Item "E:\Userprofiles$" -Type Directory
 
 start-sleep 5
 #Create the Shares
-New-SmbShare -Name "Gemensam$" -Path "E:\Gemensam" `
+New-SmbShare -Name "Gemensam$" -Path "E:\Gemensam$" `
     -FullAccess "Everyone" 
-New-SmbShare -Name "Ekonomi$" -Path "E:\Ekonomi" `
+New-SmbShare -Name "Ekonomi$" -Path "E:\Ekonomi$" `
     -FullAccess "Everyone" 
-New-SmbShare -Name "Apps$" -Path "E:\Apps" `
+New-SmbShare -Name "Apps$" -Path "E:\Apps$" `
     -FullAccess "Everyone" 
-    New-SmbShare -Name "Ledning$" -Path "E:\Ledning" `
+    New-SmbShare -Name "Ledning$" -Path "E:\Ledning$" `
     -FullAccess "Everyone" 
-New-SmbShare -Name "Users$" -Path "E:\Users" `
+New-SmbShare -Name "Users$" -Path "E:\Users$" `
     -FullAccess "Everyone" 
-New-SmbShare -Name "Userprofiles$" -Path "E:\Userprofiles" `
+New-SmbShare -Name "Userprofiles$" -Path "E:\Userprofiles$" `
     -FullAccess "Everyone" 
 
 #Set ACL for Apps$
-$ACLApps = Get-Acl "E:\Apps" 
+$ACLApps = Get-Acl "E:\Apps$" 
 $ACLApps.SetAccessRuleProtection($True, $True)
 $ARApps = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Users","Modify,DeleteSubDirectoriesAndFiles","ContainerInherit,ObjectInherit","None","Allow")
 $ACLApps.AddAccessRule($ARApps)       
-Set-ACL "E:\Apps\" $ACLApps
+Set-ACL "E:\Apps$\" $ACLApps
 
 #Set ACL for Gemensam$
-$ACLGemensam = Get-Acl "E:\Gemensam" 
+$ACLGemensam = Get-Acl "E:\Gemensam$" 
 $ACLGemensam.SetAccessRuleProtection($True, $True)
 $ARGemensam = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Users","Modify,DeleteSubDirectoriesAndFiles","ContainerInherit,ObjectInherit","None","Allow")
 $ACLGemensam.AddAccessRule($ARGemensam)       
-Set-ACL "E:\Gemensam\" $ACLGemensam
+Set-ACL "E:\Gemensam$\" $ACLGemensam
 
 #Set ACL for Ledning$
-$ACLLedning = Get-Acl "E:\Ledning" 
+$ACLLedning = Get-Acl "E:\Ledning$" 
 $ACLLedning.SetAccessRuleProtection($True, $True)
 $ARLedning = New-Object System.Security.AccessControl.FileSystemAccessRule("Ledning","Modify,DeleteSubDirectoriesAndFiles","ContainerInherit,ObjectInherit","None","Allow")
 $ACLLedning.AddAccessRule($ARLedning)      
-Set-ACL "E:\Ledning\" $ACLLedning
+Set-ACL "E:\Ledning$\" $ACLLedning
 
 #Set ACL for Ekonomi$
-$ACLEkonomi = Get-Acl "E:\Ekonomi" 
+$ACLEkonomi = Get-Acl "E:\Ekonomi$" 
 $ACLEkonomi.SetAccessRuleProtection($True, $True)
 $AREkonomi = New-Object System.Security.AccessControl.FileSystemAccessRule("Ekonomi","Modify,DeleteSubDirectoriesAndFiles","ContainerInherit,ObjectInherit","None","Allow")
 $ACLEkonomi.AddAccessRule($AREkonomi)      
-Set-ACL "E:\Ekonomi\" $ACLEkonomi
+Set-ACL "E:\Ekonomi$\" $ACLEkonomi
 
 #Set ACL for Users$
-$ACLUsers = Get-Acl "E:\Users" 
+$ACLUsers = Get-Acl "E:\Users$" 
 $ACLUsers.SetAccessRuleProtection($True, $True)
 $ARUsers = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Users","ReadAndExecute,ListDirectory,CreateDirectories,CreateFiles,Traverse","Allow")
 $ACLUsers.AddAccessRule($ARUsers)      
-Set-ACL "E:\Users\" $ACLUsers
+Set-ACL "E:\Users$\" $ACLUsers
 
 #Set ACL for Userprofiles$
-$ACLUserprofiles = Get-Acl "E:\Userprofiles" 
+$ACLUserprofiles = Get-Acl "E:\Userprofiles$" 
 $ACLUserprofiles.SetAccessRuleProtection($True, $True)
 $ARUserprofiles = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Users","ReadAndExecute,ListDirectory,CreateDirectories,CreateFiles,Traverse","Allow")
 $ACLUserprofiles.AddAccessRule($ARUserprofiles)      
-Set-ACL "E:\Userprofiles\" $ACLUserprofiles
+Set-ACL "E:\Userprofiles$\" $ACLUserprofiles
 
 
 
