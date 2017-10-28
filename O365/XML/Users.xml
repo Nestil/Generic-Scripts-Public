@@ -1,0 +1,42 @@
+
+<AD>
+    <Domainname>test.local</Domainname>
+    <Netbios>TEST</Netbios>
+    <Domainmode>7</Domainmode>
+    <Forestmode>7</Forestmode> 
+    <FirstOU>TESTOU</FirstOU>
+
+<NestilUsers>
+  <User Name="Admin1"> 
+    <Username>Admin1</Username>
+    <SamAccountName>Admin1</SamAccountName> 
+    <DisplayName>Admin1</DisplayName>
+  </User>
+    <User Name="Admin2"> 
+    <Username>Admin2</Username>
+    <SamAccountName>Admin2</SamAccountName> 
+    <DisplayName>Admin2</DisplayName>
+  </User>
+    <User Name="Admin3"> 
+    <Username>Admin3</Username>
+    <SamAccountName>Admin3</SamAccountName> 
+    <DisplayName>Admin3</DisplayName>
+  </User>
+    <User Name="Admin4"> 
+    <Username>Admin4</Username>
+    <SamAccountName>Admin4</SamAccountName> 
+    <DisplayName>Admin4</DisplayName>
+  </User>
+    <User Name="Admin5"> 
+    <Username>Admin5</Username>
+    <SamAccountName>Admin5</SamAccountName> 
+    <DisplayName>Admin5</DisplayName>
+  </User>
+    <User Name="Admin6"> 
+    <Username>Admin6</Username>
+    <SamAccountName>Admin6</SamAccountName> 
+    <DisplayName>Admin6</DisplayName>
+  </User>
+</NestilUsers>    
+
+</AD>

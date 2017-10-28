@@ -14,6 +14,11 @@ $nestiladm = Read-Host "Enter the full username for nestiladmin@domainname"
 $nestiladmpasswd = Read-Host "Enter the password for nestiladmin@"
 Get-msoluser |set-msoluserpassword -newpassword $passwd -forcechangepassword $false
 Set-MsolUserPassword -UserPrincipalName $nestiladm -NewPassword $nestiladmpasswd -ForceChangePassword $false 
+Set-MsolUserPassword -UserPrincipalName $nestiladm -NewPassword $nestiladmpasswd -ForceChangePassword $false 
+Set-MsolUserPassword -UserPrincipalName $nestiladm -NewPassword $nestiladmpasswd -ForceChangePassword $false 
+Set-MsolUserPassword -UserPrincipalName $nestiladm -NewPassword $nestiladmpasswd -ForceChangePassword $false 
+Set-MsolUserPassword -UserPrincipalName $nestiladm -NewPassword $nestiladmpasswd -ForceChangePassword $false 
+
 
 # Remove session when done.
 Remove-PSSession -ComputerName outlook.office365.com
