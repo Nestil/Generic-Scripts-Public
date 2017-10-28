@@ -59,8 +59,7 @@ New-Item "E:\Gemensam$" -Type Directory
 New-Item "E:\Ekonomi$" -Type Directory
 New-Item "E:\Apps$" -Type Directory
 New-Item "E:\Ledning$" -Type Directory
-New-Item "E:\Users$" -Type Directory
-New-Item "E:\Userprofiles$" -Type Directory
+New-Item "E:\UPD$" -Type Directory
 
 start-sleep 5
 #Create the Shares
@@ -72,9 +71,7 @@ New-SmbShare -Name "Apps$" -Path "E:\Apps$" `
     -FullAccess "Everyone" 
     New-SmbShare -Name "Ledning$" -Path "E:\Ledning$" `
     -FullAccess "Everyone" 
-New-SmbShare -Name "Users$" -Path "E:\Users$" `
-    -FullAccess "Everyone" 
-New-SmbShare -Name "Userprofiles$" -Path "E:\Userprofiles$" `
+New-SmbShare -Name "UPD$" -Path "E:\UPD$" `
     -FullAccess "Everyone" 
 
 #Set ACL for Apps$
@@ -105,40 +102,9 @@ $AREkonomi = New-Object System.Security.AccessControl.FileSystemAccessRule("Ekon
 $ACLEkonomi.AddAccessRule($AREkonomi)      
 Set-ACL "E:\Ekonomi$\" $ACLEkonomi
 
-#Set ACL for Users$
-$ACLUsers = Get-Acl "E:\Users$" 
+#Set ACL for UPD$
+$ACLUsers = Get-Acl "E:\UPD$" 
 $ACLUsers.SetAccessRuleProtection($True, $True)
 $ARUsers = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Users","ReadAndExecute,ListDirectory,CreateDirectories,CreateFiles,Traverse","Allow")
 $ACLUsers.AddAccessRule($ARUsers)      
-Set-ACL "E:\Users$\" $ACLUsers
-
-#Set ACL for Userprofiles$
-$ACLUserprofiles = Get-Acl "E:\Userprofiles$" 
-$ACLUserprofiles.SetAccessRuleProtection($True, $True)
-$ARUserprofiles = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Users","ReadAndExecute,ListDirectory,CreateDirectories,CreateFiles,Traverse","Allow")
-$ACLUserprofiles.AddAccessRule($ARUserprofiles)      
-Set-ACL "E:\Userprofiles$\" $ACLUserprofiles
-
-
-
-
-#$ACL = $Apps.GetAccessControl('Access')
-$TSUsers = Get-ADGroup "TS Users"
-$Gemensam = Get-ADGroup "Gemensam"
-$Ekonomi = Get-ADGroup "Ekonomi"
-$Ledning = Get-ADGroup "Ledning"
-
-
-<# This part is a work in Progress...
-
-$HomeFolders = Get-ChildItem E:\Userprofiles -Directory
-foreach ($HomeFolder in $HomeFolders) {
-    $Path = $HomeFolder.FullName
-    $Acl = (Get-Item $Path).GetAccessControl('Access')
-    $Username = $HomeFolder.Name
-    $Ar = New-Object System.Security.AccessControl.FileSystemAccessRule($Username, 'Modify', 'ContainerInherit,ObjectInherit', 'None', 'Allow')
-    $Acl.SetAccessRule($Ar)
-    Set-Acl -path $Path -AclObject $Acl
-}
-
-#>
+Set-ACL "E:\UPD$\" $ACLUsers
