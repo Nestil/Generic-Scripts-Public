@@ -19,4 +19,4 @@ Add-RDServer -Server "$Localmachine.$Netbiosname.local" -Role RDS-LICENSING -Con
 Set-RDLicenseConfiguration -LicenseServer "$Localmachine.$Netbiosname.local" -Mode PerUser -ConnectionBroker "$TSName.$Netbiosname.local"
 
 #Create the Collection
-New-RDSessionCollection -CollectionName SessionCollection -SessionHost "$TSName.$Netbiosname.local" -CollectionDescription "Remote Desktop Collection" -ConnectionBroker "$TSName.$Netbiosname.local"
+New-RDSessionCollection -CollectionName TSFARM1 -SessionHost "$TSName.$Netbiosname.local" -CollectionDescription "Remote Desktop Collection" -ConnectionBroker "$TSName.$Netbiosname.local"

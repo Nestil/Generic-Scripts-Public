@@ -1,10 +1,12 @@
 ﻿<#
   .Synopsis
     Script for NBH Deployments
-    Run this one AFTER New-NBHADStructure.ps1
+    Run this one AFTER New-NBHADStructure.ps1 
+    Important: Run this script on the FS server
   
   .Description
     This script do the following: 
+
 
     1. Check if disk E: is brought online
     2. If not online, it brings it online and checks if there is a valid GPT partition. 
