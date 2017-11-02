@@ -22,8 +22,8 @@ $FirstOU = $AD.AD.FirstOU
 $Nestilpwd = Read-Host "Skriv in lösenordet för nestiladmins"
 
 #Add Windows Search and Print Service tools
-Add-WindowsFeature -Name "Search-Service"
-Add-WindowsFeature -Name "RSAT-Print-Services" 
+#Add-WindowsFeature -Name "Search-Service"
+#Add-WindowsFeature -Name "RSAT-Print-Services" 
 
 #Add the OU Structure
 New-ADOrganizationalUnit -Name $FirstOU
@@ -38,7 +38,6 @@ New-ADGroup -Name "Ekonomi" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$
 New-ADGroup -Name "Ledning" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-ADGroup -Name "TS Users" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-ADGroup -Name "Gemensam" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
-New-ADGroup -Name "SVC Accounts" -Groupscope Global -Path "OU=Groups,OU=$FirstOU,DC=$Netbiosname,DC=local"
 
 #Lägg till alla NestilAdmins som Domain Admins
 #Version 1.1 MW/RK
@@ -65,7 +64,6 @@ New-GPO -Name "Domain Controller Settings - PDC Specific Tasks"
 New-GPO -Name "Domain Server Settings - Default"
 New-GPO -Name "Server Settings - RDP"
 New-GPO -Name "TS Lockdown"
-New-GPO -Name "Folder Redirection"
 New-GPO -Name "Outlook Fix"
 New-GPO -Name "Outlook Autodiscover Regfix"
 New-GPO -Name "Mappa Enheter"
@@ -84,7 +82,6 @@ New-GPLink -Name "Domain Controller Settings - Default" -Target "OU=Domain Contr
 New-GPLink -Name "Domain Controller Settings - PDC Specific Tasks" -Target "OU=Domain Controllers,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Domain Controller Settings - Default" -Target "OU=Domain Controllers,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Domain Server Settings - Default" -Target "OU=Domain Controllers,DC=$Netbiosname,DC=local"
-New-GPLink -Name "Folder Redirection" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Outlook Fix" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Mappa Enheter" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "TS Lockdown" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
