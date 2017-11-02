@@ -29,6 +29,7 @@ $Nestilpwd = Read-Host "Skriv in lösenordet för nestiladmins"
 New-ADOrganizationalUnit -Name $FirstOU
 New-ADOrganizationalUnit -Name Groups -Path "OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-ADOrganizationalUnit -Name Servers -Path "OU=$FirstOU,DC=$Netbiosname,DC=local"
+New-ADOrganizationalUnit -Name RDS -Path "OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-ADOrganizationalUnit -Name Nestil -Path "OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-ADOrganizationalUnit -Name Users -Path "OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-ADOrganizationalUnit -Name Konsulter -Path "OU=$FirstOU,DC=$Netbiosname,DC=local"
