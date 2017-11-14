@@ -1,9 +1,8 @@
 ﻿<#
   .Synopsis
     Script for NBH Deployments
-    Run this one AFTER New-NBHADStructure.ps1 
-    Important: Run this script on the FS server
-  
+    This script will be run from OneScripttoRuleThemAll.ps1 
+   
   .Description
     This script do the following: 
 

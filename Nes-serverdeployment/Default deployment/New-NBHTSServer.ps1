@@ -1,4 +1,17 @@
-﻿#Deploy Connection broker, Webaccessserver and sessionhost to your TS server 
+﻿<#
+  .Synopsis
+   This script installs the RDS Environment. 
+   The script will be started from OneScripttoRuleThemAll.ps1
+  
+  .Notes
+    Author: Ron Kjernell - ron@nestil.se
+      
+  .LINK
+    http://www.nestil.se  
+    https://github.com/Nestil/
+#>
+
+#Deploy Connection broker, Webaccessserver and sessionhost to your TS server 
 New-RDSessionDeployment -ConnectionBroker "$TSName.$Netbiosname.local" -WebAccessServer "$TSName.$Netbiosname.local" -SessionHost "$TSName.$Netbiosname.local"
 
 #Wait 5 minutes due to server restart

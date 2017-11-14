@@ -1,2 +1,0 @@
-#Set the UPD configuration
-Set-RDSessionCollectionConfiguration -CollectionName TSFarm1 -ConnectionBroker "$TSName.$Netbiosname.local" -EnableUserProfileDisk -MaxUserProfileDiskSizeGB 50 -DiskPath \\$FSName\UPD$

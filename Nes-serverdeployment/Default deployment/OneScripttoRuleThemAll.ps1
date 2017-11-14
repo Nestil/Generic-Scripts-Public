@@ -1,3 +1,28 @@
+<#
+  .Synopsis
+    This Script is the masterscript that takes care of the deploymentscripts. Run this one AFTER New-NBHADForest.ps1.
+
+    The Script will Run:
+    1. New-NBHTSServer 
+    2. New-NBHADStructure
+    3. Install the Search Service on RDS and Fileserver
+    4. Copy Repo folder from local server to Fileserver
+    5. Runs New-NBHSharedFolder from the local disk on Fileserver
+    6. Configure User Profile Disks
+    7. Install Volume Activation Role (Need manual configuration afterwards)
+    8. Copy Sysvol scripts to correct folder
+    9. Activate Search services on RDS and File servers. 
+  
+  .Notes
+    Author: Ron Kjernell - ron@nestil.se
+    
+    Things to add in the future: Automate Volume Activation Role and Automate the manual steps of RDS.
+      
+  .LINK
+    http://www.nestil.se  
+    https://github.com/Nestil/
+#>
+
 Import-Module RemoteDesktop
 Import-Module ActiveDirectory
 
@@ -19,7 +44,7 @@ sleep 60
 & 'C:\Repo\Generic-Scripts-Public\Nes-serverdeployment\Default deployment\New-NBHADStructure.ps1'
 
 sleep 60
-#Install Seach Service on RDS and Fileserver
+#Install Search Service on RDS and Fileserver
 Add-WindowsFeature -Name "Search-Service" -ComputerName $TSName  
 sleep 60
 Add-WindowsFeature -Name "Search-Service" -ComputerName $FSName  
