@@ -1,5 +1,5 @@
 ﻿#Deploy Connection broker, Webaccessserver and sessionhost to your TS server 
-New-RDSessionDeployment -ConnectionBroker "$TSName.$Netbiosname.local" -WebAccessServer "$TSName.$Netbiosname.local" -SessionHost "$TSName.$Netbiosname.local" 
+New-RDSessionDeployment -ConnectionBroker "$TSName.$Netbiosname.local" -WebAccessServer "$TSName.$Netbiosname.local" -SessionHost "$TSName.$Netbiosname.local"
 
 #Wait 5 minutes due to server restart
 Start-Sleep 300

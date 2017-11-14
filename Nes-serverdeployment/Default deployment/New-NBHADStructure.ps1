@@ -88,7 +88,7 @@ $GpoId = "{"+$GpoGetInfo.Id+"}"
 $GpoPath = '\\'+$Netbiosname+'.local\SYSVOL\'+$Netbiosname+'.local\Policies\'+$gpoid+'\Machine\Preferences\Files\Files.xml'
 $GpoXml = (Get-Content $GpoPath)
 $Newcustomfilepath = '\\'+$Netbiosname+'.local\SYSVOL\'+$Netbiosname+'.local\scripts\bginfo\Custom.bgi'
-$Newbginfofilepath = '\\'+$Netbiosname+'.local\SYSVOL\'+$Netbiosname+'.local\scripts\bginfo\Bginfo.bgi'
+$Newbginfofilepath = '\\'+$Netbiosname+'.local\SYSVOL\'+$Netbiosname+'.local\scripts\bginfo\Bginfo.exe'
 
 $GpoCustom = $GpoXml.Files.File.properties | where {$_.fromPath -eq '\\corema.local\SYSVOL\corema.local\scripts\bginfo\Custom.bgi'}
 $GpoBginfo = $GpoXml.Files.File.properties | where {$_.fromPath -eq '\\corema.local\SYSVOL\corema.local\scripts\bginfo\Bginfo.exe'}
