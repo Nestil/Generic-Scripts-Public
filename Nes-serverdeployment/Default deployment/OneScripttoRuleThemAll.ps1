@@ -39,7 +39,7 @@ sleep 60
 Set-RDSessionCollectionConfiguration -CollectionName TSFarm1 -ConnectionBroker "$TSName.$Netbiosname.local" -EnableUserProfileDisk -MaxUserProfileDiskSizeGB 50 -DiskPath \\$FSName\UPD$
 
 #Install Windows Activation (Needs manual configuration afterwards)
-Add-WindowsFeature -Name VolumeActivation
+Add-WindowsFeature -Name VolumeActivation -IncludeAllSubFeature -IncludeManagementTools
 
 #Copy sysvol
 Robocopy C:\Repo\Generic-Scripts-Public\AD\sysvol \\$Netbiosname.local\Sysvol\$Netbiosname.local\scripts\ /MIR
