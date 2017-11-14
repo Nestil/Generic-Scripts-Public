@@ -15,15 +15,6 @@
 #>
 
 
-[xml]$AD = Get-Content -Path C:\Repo\Generic-Scripts-Public\AD\XML\AD.xml
-Import-Module ActiveDirectory
-$Netbiosname = $AD.AD.Netbios
-$FirstOU = $AD.AD.FirstOU
-$Nestilpwd = Read-Host "Skriv in lösenordet för nestiladmins"
-
-#Add Windows Search and Print Service tools
-#Add-WindowsFeature -Name "Search-Service"
-#Add-WindowsFeature -Name "RSAT-Print-Services" 
 
 #Add the OU Structure
 New-ADOrganizationalUnit -Name $FirstOU
@@ -81,7 +72,7 @@ Import-GPO -BackupGPOName "Outlook autodiscover reg fix" -TargetName "Outlook Au
 #Link GPO to OU's
 New-GPLink -Name "Domain Controller Settings - Default" -Target "OU=Domain Controllers,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Domain Controller Settings - PDC Specific Tasks" -Target "OU=Domain Controllers,DC=$Netbiosname,DC=local"
-New-GPLink -Name "Domain Controller Settings - Default" -Target "OU=Domain Controllers,DC=$Netbiosname,DC=local"
+# Already linked by default - New-GPLink -Name "Domain Controller Settings - Default" -Target "OU=Domain Controllers,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Domain Server Settings - Default" -Target "OU=Domain Controllers,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Outlook Fix" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Mappa Enheter" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
