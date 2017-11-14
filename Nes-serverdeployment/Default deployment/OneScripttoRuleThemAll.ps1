@@ -28,7 +28,7 @@ sleep 60
 #Copy Repofolder to Fileserver
 Invoke-Command -ComputerName $FSName -ScriptBlock {mkdir c:\Repo} 
 Invoke-Command -ComputerName $FSName -ScriptBlock {New-SmbShare -Name "Repo$" -Path "c:\Repo" -FullAccess "Everyone"} 
-Robocopy c:\Repo \\KjernellFS\Repo$ /MIR
+Robocopy c:\Repo \\$FSName\Repo$ /MIR
 Invoke-Command -ComputerName $FSName -ScriptBlock {Remove-SmbShare -Name Repo$ -Force} 
  `
 #Run New-NBHSharedFolders from FS server and then exit the session
