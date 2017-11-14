@@ -81,3 +81,17 @@ New-GPLink -Name "Outlook Autodiscover Regfix" -Target "OU=Users,OU=$FirstOU,DC=
 New-GPLink -Name "Mappa Enheter" -Target "$Path"
 New-GPLink -Name "Server Settings - RDP" -Target "OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Domain Server Settings - Default" -Target "OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
+
+# Change Path to bginfo files in Domain Server Settings Default
+$GpoGetInfo = get-gpo -Name "Domain Server Settings - Default" 
+$GpoId = "{"+$GpoGetInfo.Id+"}"
+$GpoPath = '\\'+$Netbiosname+'.local\SYSVOL\'+$Netbiosname+'.local\Policies\'+$gpoid+'\Machine\Preferences\Files\Files.xml'
+$GpoXml = (Get-Content $GpoPath)
+$Newcustomfilepath = '\\'+$Netbiosname+'.local\SYSVOL\'+$Netbiosname+'.local\scripts\bginfo\Custom.bgi'
+$Newbginfofilepath = '\\'+$Netbiosname+'.local\SYSVOL\'+$Netbiosname+'.local\scripts\bginfo\Bginfo.bgi'
+
+$GpoCustom = $GpoXml.Files.File.properties | where {$_.fromPath -eq '\\corema.local\SYSVOL\corema.local\scripts\bginfo\Custom.bgi'}
+$GpoBginfo = $GpoXml.Files.File.properties | where {$_.fromPath -eq '\\corema.local\SYSVOL\corema.local\scripts\bginfo\Bginfo.exe'}
+$GpoCustom.fromPath = $Newcustomfilepath
+$GpoBginfo.fromPath = $Newbginfofilepath
+$GpoXml.Save($GpoPath)
