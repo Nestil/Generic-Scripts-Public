@@ -85,7 +85,7 @@ Set-ACL "E:\Apps$\" $ACLApps
 #Set ACL for Gemensam$
 $ACLGemensam = Get-Acl "E:\Gemensam$" 
 $ACLGemensam.SetAccessRuleProtection($True, $True)
-$ARGemensam = New-Object System.Security.AccessControl.FileSystemAccessRule("TS Users","Modify,DeleteSubDirectoriesAndFiles","ContainerInherit,ObjectInherit","None","Allow")
+$ARGemensam = New-Object System.Security.AccessControl.FileSystemAccessRule("Gemensam","Modify,DeleteSubDirectoriesAndFiles","ContainerInherit,ObjectInherit","None","Allow")
 $ACLGemensam.AddAccessRule($ARGemensam)       
 Set-ACL "E:\Gemensam$\" $ACLGemensam
 

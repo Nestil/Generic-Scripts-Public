@@ -12,18 +12,19 @@
 #>
 
 #Deploy Connection broker, Webaccessserver and sessionhost to your TS server 
-New-RDSessionDeployment -ConnectionBroker "$TSName.$Netbiosname.local" -WebAccessServer "$TSName.$Netbiosname.local" -SessionHost "$TSName.$Netbiosname.local"
+New-RDSessionDeployment -ConnectionBroker "$TSName.$Domainname" -WebAccessServer "$TSName.$Domainname" -SessionHost "$TSName.$Domainname"
 
 #Wait 5 minutes due to server restart
 Start-Sleep 300
 
 #Add Licensingserver on this machine, Should be the DC in most cases
-Add-RDServer -Server "$Localmachine.$Netbiosname.local" -Role RDS-LICENSING -ConnectionBroker "$TSName.$Netbiosname.local"
+Add-RDServer -Server "$Localmachine.$Domainname" -Role RDS-LICENSING -ConnectionBroker "$TSName.$Domainname"
 
-Set-RDLicenseConfiguration -LicenseServer "$Localmachine.$Netbiosname.local" -Mode PerUser -ConnectionBroker "$TSName.$Netbiosname.local"
+Set-RDLicenseConfiguration -LicenseServer "$Localmachine.$Domainname" -Mode PerUser -ConnectionBroker "$TSName.$Domainname" -Force
 
 #Create the Collection
-New-RDSessionCollection -CollectionName TSFarm1 -SessionHost "$TSName.$Netbiosname.local" -CollectionDescription "Remote Desktop Collection" -ConnectionBroker "$TSName.$Netbiosname.local"
+New-RDSessionCollection -CollectionName TSFarm1 -SessionHost "$TSName.$Domainname" -CollectionDescription "Remote Desktop Collection" -ConnectionBroker "$TSName.$Domainname"
+sleep 60
 
 #Install RDGW components
-Add-RDServer -Server "$TSName.$Netbiosname.local" -Role RDS-GATEWAY -GatewayExternalFqdn $GWName -ConnectionBroker "$TSName.$Netbiosname.local"
+Add-RDServer -Server "$TSName.$Domainname" -Role RDS-GATEWAY -GatewayExternalFqdn $GWName -ConnectionBroker "$TSName.$Domainname"

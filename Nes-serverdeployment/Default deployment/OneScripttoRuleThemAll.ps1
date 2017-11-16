@@ -28,6 +28,7 @@ Import-Module ActiveDirectory
 
 [xml]$AD = Get-Content -Path C:\Repo\Generic-Scripts-Public\AD\XML\AD.xml
 $Netbiosname = $AD.AD.Netbios
+$Domainname = $AD.AD.Domainname
 $FirstOU = $AD.AD.FirstOU
 $DCName = Read-Host "Write the Netbios name of your DC Server"
 $TSName = Read-Host "Write the Netbios name of your TS server" 
@@ -38,7 +39,10 @@ $Localmachine = hostname
 
 #Run New-NBHTSServer
 & 'C:\Repo\Generic-Scripts-Public\Nes-serverdeployment\Default deployment\New-NBHTSServer.ps1'
-sleep 60
+sleep 300
+#Copy sysvol
+Robocopy C:\Repo\Generic-Scripts-Public\AD\sysvol \\$Domainname\Sysvol\$Domainname\scripts\ /MIR
+sleep 120
 
 #Run New-NBHADStructure
 & 'C:\Repo\Generic-Scripts-Public\Nes-serverdeployment\Default deployment\New-NBHADStructure.ps1'
@@ -46,7 +50,6 @@ sleep 60
 sleep 60
 #Install Search Service on RDS and Fileserver
 Add-WindowsFeature -Name "Search-Service" -ComputerName $TSName  
-sleep 60
 Add-WindowsFeature -Name "Search-Service" -ComputerName $FSName  
 sleep 60
 
@@ -61,14 +64,14 @@ Invoke-Command -ComputerName $FSName -FilePath 'C:\Repo\Generic-Scripts-Public\N
 sleep 60
 
 #Set UPD Configuration
-Set-RDSessionCollectionConfiguration -CollectionName TSFarm1 -ConnectionBroker "$TSName.$Netbiosname.local" -EnableUserProfileDisk -MaxUserProfileDiskSizeGB 50 -DiskPath \\$FSName\UPD$
+Set-RDSessionCollectionConfiguration -CollectionName TSFarm1 -ConnectionBroker "$TSName.$Domainname" -EnableUserProfileDisk -MaxUserProfileDiskSizeGB 50 -DiskPath \\$FSName\UPD$
 
 #Install Windows Activation (Needs manual configuration afterwards)
 Add-WindowsFeature -Name VolumeActivation -IncludeAllSubFeature -IncludeManagementTools
 
-#Copy sysvol
-Robocopy C:\Repo\Generic-Scripts-Public\AD\sysvol \\$Netbiosname.local\Sysvol\$Netbiosname.local\scripts\ /MIR
-
 #Enable Search service on FS and RDS
 Set-Service -Name Wsearch -Status Running -PassThru -ComputerName $TSName -StartupType Automatic
 Set-Service -Name Wsearch -Status Running -PassThru -ComputerName $FSName -StartupType Automatic
+Set-Service -Name MapsBroker -Status Stopped -PassThru -ComputerName $Localmachine -StartupType Disabled
+Set-Service -Name MapsBroker -Status Stopped -PassThru -ComputerName $TSName -StartupType Disabled
+Set-Service -Name MapsBroker -Status Stopped -PassThru -ComputerName $FSName -StartupType Disabled

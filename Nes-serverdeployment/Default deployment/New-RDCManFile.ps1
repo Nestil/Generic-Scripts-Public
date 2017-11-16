@@ -35,10 +35,14 @@
  
 #Importing Microsoft`s PowerShell-module for administering Active Directory 
 Import-Module ActiveDirectory 
- 
+
+[xml]$AD = Get-Content -Path C:\Repo\Generic-Scripts-Public\AD\XML\AD.xml
+$Netbiosname = $AD.AD.Netbios
+
+
 #Initial variables 
 $EnableRDGW = $true                  # set to: $false if RDGW should not be used 
-$RDGW = "pegab.businesshosting.se"    # Enter External RDGW Address if this is incorrect. 
+$RDGW = "$Netbiosname.businesshosting.se"    # Enter External RDGW Address if this is incorrect. 
 
 
 $domain = $env:userdomain 
