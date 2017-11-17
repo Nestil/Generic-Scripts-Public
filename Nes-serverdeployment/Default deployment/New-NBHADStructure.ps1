@@ -114,7 +114,7 @@ $GpoShareNewLedningPath = '\\'+$FSName+'\Ledning$'
 $GpoShareGemensam = $GpoShareXml.Drives.Drive | where {$_.name -eq 'G:'}
 $GpoShareNewGemensamPath = '\\'+$FSName+'\Gemensam$'
  
-$GpoShareEkonomiFilterPath = $GpoShareEkonomi.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Ekonomi'}
+$GpoShareEkonomiFilterPath = $GpoShareEkonomi.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Ekonomi$'}
 $GpoShareLedningFilterPath = $GpoShareLedning.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Ledning'}
 $GpoShareGemensamFilterPath = $GpoShareGemensam.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Gemensam'}
 

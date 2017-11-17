@@ -36,6 +36,9 @@ $FSName = Read-Host "Write the Netbios name of your Fileserver"
 $GWName = Read-Host "Enter the name of the RDGW FQDN"
 $Nestilpwd = Read-Host "Enter password for nestiladmins"
 $Localmachine = hostname
+Write-Host "--------------------------------------------------------------------"
+Write-Host "Now is a good time to grab some caffeine. This will take a while... "
+Write-Host "--------------------------------------------------------------------"
 
 #Run New-NBHTSServer
 & 'C:\Repo\Generic-Scripts-Public\Nes-serverdeployment\Default deployment\New-NBHTSServer.ps1'
@@ -75,3 +78,12 @@ Set-Service -Name Wsearch -Status Running -PassThru -ComputerName $FSName -Start
 Set-Service -Name MapsBroker -Status Stopped -PassThru -ComputerName $Localmachine -StartupType Disabled
 Set-Service -Name MapsBroker -Status Stopped -PassThru -ComputerName $TSName -StartupType Disabled
 Set-Service -Name MapsBroker -Status Stopped -PassThru -ComputerName $FSName -StartupType Disabled
+
+#Move Servers in AD to correct OU
+Get-ADComputer -Identity $TSName | Move-ADObject -TargetPath ('OU=RDS,OU=Servers,OU='+$FirstOu+',DC='+$FirstOu+',DC=local')
+Get-ADComputer -Identity $FSName | Move-ADObject -TargetPath ('OU=Servers,OU='+$FirstOu+',DC='+$FirstOu+',DC=local')
+
+#All done! 
+Write-Host "---------"
+Write-Host "All done!"
+Write-Host "---------"
