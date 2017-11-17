@@ -100,6 +100,10 @@ $GpoXml.Save($GpoPath)
 sleep 120
 
 #Add Shared folders to GPO
+$ADGroupGemensam = Get-ADGroup -Identity Gemensam
+$ADGroupEkonomi = Get-ADGroup -Identity Ekonomi
+$ADGroupLedning = Get-ADGroup -Identity Ledning
+
 $GpoShareName = get-gpo -Name "Mappa Enheter" 
 $GpoShareId = "{"+$GpoShareName.Id+"}"
 $GpoSharePath = '\\'+$Domainname+'\SYSVOL\'+$Domainname+'\Policies\'+$GpoShareID+'\User\Preferences\Drives\Drives.xml'
@@ -120,11 +124,14 @@ $GpoShareGemensamFilterPath = $GpoShareGemensam.Filters.FilterGroup | where {$_.
 
 $GpoShareEkonomi.Properties.path = $GpoShareNewEkonomiPath
 $GpoShareEkonomiFilterPath.name = $Netbiosname+'\Ekonomi'
+$GpoShareEkonomiFilterPath.sid = $ADGroupEkonomi.SID.Value
 
 $GpoShareLedning.Properties.path = $GpoShareNewLedningPath
 $GpoShareLedningFilterPath.name = $Netbiosname+'\Ledning'
+$GpoShareLedningFilterPath.sid = $ADGroupLedning.SID.Value
 
 $GpoShareGemensam.Properties.path = $GpoShareNewGemensamPath
 $GpoShareGemensamFilterPath.name = $Netbiosname+'\Gemensam'
+$GpoShareGemensamFilterPath.sid = $ADGroupGemensam.SID.Value
 
 $GpoShareXml.Save($GpoSharePath)
