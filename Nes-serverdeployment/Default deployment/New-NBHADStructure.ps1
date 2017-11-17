@@ -81,6 +81,8 @@ New-GPLink -Name "Mappa Enheter" -Target "$Path"
 New-GPLink -Name "Server Settings - RDP" -Target "OU=RDS,OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Domain Server Settings - Default" -Target "OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
 
+sleep 120 
+
 # Change Path to bginfo files in Domain Server Settings Default
 $GpoGetInfo = get-gpo -Name "Domain Server Settings - Default" 
 $GpoId = "{"+$GpoGetInfo.Id+"}"
@@ -95,13 +97,15 @@ $GpoCustom.fromPath = $Newcustomfilepath
 $GpoBginfo.fromPath = $Newbginfofilepath
 $GpoXml.Save($GpoPath)
 
+sleep 120
+
 #Add Shared folders to GPO
 $GpoShareName = get-gpo -Name "Mappa Enheter" 
 $GpoShareId = "{"+$GpoShareName.Id+"}"
 $GpoSharePath = '\\'+$Domainname+'\SYSVOL\'+$Domainname+'\Policies\'+$GpoShareID+'\User\Preferences\Drives\Drives.xml'
 [xml]$GpoShareXml = Get-Content -Path $GpoSharePath
 
-$GpoShareEkonomi = $GpoShareXml.Drives.Drive | where {$_.name -eq 'e:'}
+$GpoShareEkonomi = $GpoShareXml.Drives.Drive | where {$_.name -eq 'E:'}
 $GpoShareNewEkonomiPath = '\\'+$FSName+'\Ekonomi$'
 
 $GpoShareLedning = $GpoShareXml.Drives.Drive | where {$_.name -eq 'L:'}
@@ -110,17 +114,17 @@ $GpoShareNewLedningPath = '\\'+$FSName+'\Ledning$'
 $GpoShareGemensam = $GpoShareXml.Drives.Drive | where {$_.name -eq 'G:'}
 $GpoShareNewGemensamPath = '\\'+$FSName+'\Gemensam$'
  
-$GpoShareEkonomiFilterPath = $GpoShareEkonomi.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Ekonomi$'}
-$GpoShareLedningFilterPath = $GpoShareLedning.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Ledning$'}
-$GpoShareGemensamFilterPath = $GpoShareGemensam.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Gemensam$'}
+$GpoShareEkonomiFilterPath = $GpoShareEkonomi.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Ekonomi'}
+$GpoShareLedningFilterPath = $GpoShareLedning.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Ledning'}
+$GpoShareGemensamFilterPath = $GpoShareGemensam.Filters.FilterGroup | where {$_.name -eq 'KJERNELL\Gemensam'}
 
 $GpoShareEkonomi.Properties.path = $GpoShareNewEkonomiPath
-$GpoShareEkonomiFilterPath.name = $Netbiosname+'\Ekonomi$'
+$GpoShareEkonomiFilterPath.name = $Netbiosname+'\Ekonomi'
 
 $GpoShareLedning.Properties.path = $GpoShareNewLedningPath
-$GpoShareLedningFilterPath.name = $Netbiosname+'\Ledning$'
+$GpoShareLedningFilterPath.name = $Netbiosname+'\Ledning'
 
 $GpoShareGemensam.Properties.path = $GpoShareNewGemensamPath
-$GpoShareGemensamFilterPath.name = $Netbiosname+'\Gemensam$'
+$GpoShareGemensamFilterPath.name = $Netbiosname+'\Gemensam'
 
 $GpoShareXml.Save($GpoSharePath)
