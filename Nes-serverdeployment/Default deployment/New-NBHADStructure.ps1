@@ -80,10 +80,9 @@ New-GPLink -Name "Outlook Fix" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=
 New-GPLink -Name "Mappa Enheter" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "TS Lockdown" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Outlook Autodiscover Regfix" -Target "OU=Users,OU=$FirstOU,DC=$Netbiosname,DC=local"
-New-GPLink -Name "Mappa Enheter" -Target "$Path"
 New-GPLink -Name "Server Settings - RDP" -Target "OU=RDS,OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Domain Server Settings - Default" -Target "OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
-New-GPLink -Name "Common Firewall rules" -Target "OU=$FirstOU,DC=$Netbiosname,DC=local"
+New-GPLink -Name "Common Firewall rules" -Target "DC=$Netbiosname,DC=local"
 
 
 
