@@ -57,6 +57,7 @@ New-GPO -Name "TS Lockdown"
 New-GPO -Name "Outlook Fix"
 New-GPO -Name "Outlook Autodiscover Regfix"
 New-GPO -Name "Mappa Enheter"
+New-GPO -Name "Common Firewall rules"
 
 #Import GPO 
 Import-GPO -BackupGPOName "Domain Controller Settings - Default" -TargetName "Domain Controller Settings - Default" -Path C:\Repo\Generic-Scripts-Public\AD\GPO 
@@ -67,6 +68,8 @@ Import-GPO -BackupGPOName "TS Lockdown"-TargetName "TS Lockdown" -Path C:\Repo\G
 Import-GPO -BackupGPOName "Outlook Fix" -TargetName "Outlook Fix" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
 Import-GPO -BackupGPOName "Outlook autodiscover regfix" -TargetName "Outlook Autodiscover Regfix"  -Path C:\Repo\Generic-Scripts-Public\AD\GPO
 Import-GPO -BackupGPOName "Mappa Enheter" -TargetName "Mappa Enheter" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
+Import-GPO -BackupGPOName "Common Firewall rules" -TargetName "Common Firewall rules" -Path C:\Repo\Generic-Scripts-Public\AD\GPO
+
 
 #Link GPO to OU's
 New-GPLink -Name "Domain Controller Settings - Default" -Target "OU=Domain Controllers,DC=$Netbiosname,DC=local"
@@ -80,6 +83,9 @@ New-GPLink -Name "Outlook Autodiscover Regfix" -Target "OU=Users,OU=$FirstOU,DC=
 New-GPLink -Name "Mappa Enheter" -Target "$Path"
 New-GPLink -Name "Server Settings - RDP" -Target "OU=RDS,OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
 New-GPLink -Name "Domain Server Settings - Default" -Target "OU=Servers,OU=$FirstOU,DC=$Netbiosname,DC=local"
+New-GPLink -Name "Common Firewall rules" -Target "OU=$FirstOU,DC=$Netbiosname,DC=local"
+
+
 
 sleep 120 
 
