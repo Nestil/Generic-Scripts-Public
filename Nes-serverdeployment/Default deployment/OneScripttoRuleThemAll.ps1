@@ -36,9 +36,9 @@ $FSName = Read-Host "Write the Netbios name of your Fileserver"
 $GWName = Read-Host "Enter the name of the RDGW FQDN"
 $Nestilpwd = Read-Host "Enter password for nestiladmins"
 $Localmachine = hostname
-Write-Host "--------------------------------------------------------------------"
-Write-Host "Now is a good time to grab some caffeine. This will take a while... "
-Write-Host "--------------------------------------------------------------------"
+Write-Host -BackgroundColor White -ForegroundColor Black "--------------------------------------------------------------------"
+Write-Host  -BackgroundColor White -ForegroundColor Black "Now is a good time to grab some caffeine. This will take a while... "
+Write-Host  -BackgroundColor White -ForegroundColor Black "--------------------------------------------------------------------"
 
 #Run New-NBHTSServer
 & 'C:\Repo\Generic-Scripts-Public\Nes-serverdeployment\Default deployment\New-NBHTSServer.ps1'
@@ -84,6 +84,6 @@ Get-ADComputer -Identity $TSName | Move-ADObject -TargetPath ('OU=RDS,OU=Servers
 Get-ADComputer -Identity $FSName | Move-ADObject -TargetPath ('OU=Servers,OU='+$FirstOu+',DC='+$FirstOu+',DC=local')
 
 #All done! 
-Write-Host "---------"
-Write-Host "All done!"
-Write-Host "---------"
+Write-Host -BackgroundColor Black -ForegroundColor Green "---------"
+Write-Host -BackgroundColor Black -ForegroundColor Green "All done!"
+Write-Host -BackgroundColor Black -ForegroundColor Green "---------"

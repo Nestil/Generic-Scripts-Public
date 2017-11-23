@@ -86,7 +86,7 @@ New-GPLink -Name "Common Firewall rules" -Target "DC=$Netbiosname,DC=local"
 
 
 
-sleep 120 
+sleep 60
 
 # Change Path to bginfo files in Domain Server Settings Default
 $GpoGetInfo = get-gpo -Name "Domain Server Settings - Default" 
@@ -102,7 +102,7 @@ $GpoCustom.fromPath = $Newcustomfilepath
 $GpoBginfo.fromPath = $Newbginfofilepath
 $GpoXml.Save($GpoPath)
 
-sleep 120
+sleep 60
 
 #Add Shared folders to GPO
 $ADGroupGemensam = Get-ADGroup -Identity Gemensam
