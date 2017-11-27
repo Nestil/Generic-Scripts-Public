@@ -67,7 +67,7 @@ Invoke-Command -ComputerName $FSName -FilePath 'C:\Repo\Generic-Scripts-Public\N
 sleep 60
 
 #Set UPD Configuration
-Set-RDSessionCollectionConfiguration -CollectionName TSFarm1 -ConnectionBroker "$TSName.$Domainname" -EnableUserProfileDisk -MaxUserProfileDiskSizeGB 50 -DiskPath \\$FSName\UPD$
+Set-RDSessionCollectionConfiguration -CollectionName TSFarm1 -ConnectionBroker "$TSName.$Domainname" -EnableUserProfileDisk -MaxUserProfileDiskSizeGB 100 -DiskPath \\$FSName\UPD$
 
 #Install Windows Activation (Needs manual configuration afterwards)
 Add-WindowsFeature -Name VolumeActivation -IncludeAllSubFeature -IncludeManagementTools
