@@ -83,6 +83,82 @@ Set-Service -Name MapsBroker -Status Stopped -PassThru -ComputerName $FSName -St
 Get-ADComputer -Identity $TSName | Move-ADObject -TargetPath ('OU=RDS,OU=Servers,OU='+$FirstOu+',DC='+$FirstOu+',DC=local')
 Get-ADComputer -Identity $FSName | Move-ADObject -TargetPath ('OU=Servers,OU='+$FirstOu+',DC='+$FirstOu+',DC=local')
 
+#Activate Shadow Copies on all server harddrives
+#DC Shadowcopies
+$diskname = "C:\"
+$VolumeWmi = Get-WmiObject Win32_Volume -Namespace root/cimv2 | Where-Object{ $_.Name -eq $diskname }
+$DeviceID = $VolumeWmi.DeviceID.ToUpper().Replace("\\?\VOLUME", "").Replace("\","")
+$TaskName = "ShadowCopyVolume" + $DeviceID
+$TaskFor = "\\?\Volume" + $DeviceID + "\"
+$Task = "C:\Windows\system32\vssadmin.exe"
+$Argument = "Create Shadow /AutoRetry=15 /For=$TaskFor"
+$WorkingDir = "%systemroot%\system32"
+
+$ScheduledAction = New-ScheduledTaskAction –Execute $Task -WorkingDirectory $WorkingDir -Argument $Argument
+$ScheduledTrigger = @()
+$ScheduledTrigger += New-ScheduledTaskTrigger -Daily -At 07:00
+$ScheduledTrigger += New-ScheduledTaskTrigger -Daily -At 12:00
+$ScheduledSettings = New-ScheduledTaskSettingsSet -Compatibility V1 -DontStopOnIdleEnd -ExecutionTimeLimit (New-TimeSpan -Days 3) -Priority 5
+$ScheduledTask = New-ScheduledTask -Action $ScheduledAction -Trigger $ScheduledTrigger -Settings $ScheduledSettings
+Register-ScheduledTask $TaskName -InputObject $ScheduledTask -User "NT AUTHORITY\SYSTEM"
+#FS Shadowcopies
+Invoke-Command -ComputerName $FSName -ScriptBlock{
+
+  $diskname = "C:\"
+  $VolumeWmi = Get-WmiObject Win32_Volume -Namespace root/cimv2 | Where-Object{ $_.Name -eq $diskname }
+  $DeviceID = $VolumeWmi.DeviceID.ToUpper().Replace("\\?\VOLUME", "").Replace("\","")
+  $TaskName = "ShadowCopyVolume" + $DeviceID
+  $TaskFor = "\\?\Volume" + $DeviceID + "\"
+  $Task = "C:\Windows\system32\vssadmin.exe"
+  $Argument = "Create Shadow /AutoRetry=15 /For=$TaskFor"
+  $WorkingDir = "%systemroot%\system32"
+  
+  $ScheduledAction = New-ScheduledTaskAction –Execute $Task -WorkingDirectory $WorkingDir -Argument $Argument
+  $ScheduledTrigger = @()
+  $ScheduledTrigger += New-ScheduledTaskTrigger -Daily -At 07:00
+  $ScheduledTrigger += New-ScheduledTaskTrigger -Daily -At 12:00
+  $ScheduledSettings = New-ScheduledTaskSettingsSet -Compatibility V1 -DontStopOnIdleEnd -ExecutionTimeLimit (New-TimeSpan -Days 3) -Priority 5
+  $ScheduledTask = New-ScheduledTask -Action $ScheduledAction -Trigger $ScheduledTrigger -Settings $ScheduledSettings
+  Register-ScheduledTask $TaskName -InputObject $ScheduledTask -User "NT AUTHORITY\SYSTEM"
+
+  $diskname = "E:\"
+  $VolumeWmi = Get-WmiObject Win32_Volume -Namespace root/cimv2 | Where-Object{ $_.Name -eq $diskname }
+  $DeviceID = $VolumeWmi.DeviceID.ToUpper().Replace("\\?\VOLUME", "").Replace("\","")
+  $TaskName = "ShadowCopyVolume" + $DeviceID
+  $TaskFor = "\\?\Volume" + $DeviceID + "\"
+  $Task = "C:\Windows\system32\vssadmin.exe"
+  $Argument = "Create Shadow /AutoRetry=15 /For=$TaskFor"
+  $WorkingDir = "%systemroot%\system32"
+  
+  $ScheduledAction = New-ScheduledTaskAction –Execute $Task -WorkingDirectory $WorkingDir -Argument $Argument
+  $ScheduledTrigger = @()
+  $ScheduledTrigger += New-ScheduledTaskTrigger -Daily -At 07:00
+  $ScheduledTrigger += New-ScheduledTaskTrigger -Daily -At 12:00
+  $ScheduledSettings = New-ScheduledTaskSettingsSet -Compatibility V1 -DontStopOnIdleEnd -ExecutionTimeLimit (New-TimeSpan -Days 3) -Priority 5
+  $ScheduledTask = New-ScheduledTask -Action $ScheduledAction -Trigger $ScheduledTrigger -Settings $ScheduledSettings
+  Register-ScheduledTask $TaskName -InputObject $ScheduledTask -User "NT AUTHORITY\SYSTEM"
+
+}
+#RDS Shadowcopies
+Invoke-Command -ComputerName $TSName -ScriptBlock {
+  $diskname = "C:\"
+  $VolumeWmi = Get-WmiObject Win32_Volume -Namespace root/cimv2 | Where-Object{ $_.Name -eq $diskname }
+  $DeviceID = $VolumeWmi.DeviceID.ToUpper().Replace("\\?\VOLUME", "").Replace("\","")
+  $TaskName = "ShadowCopyVolume" + $DeviceID
+  $TaskFor = "\\?\Volume" + $DeviceID + "\"
+  $Task = "C:\Windows\system32\vssadmin.exe"
+  $Argument = "Create Shadow /AutoRetry=15 /For=$TaskFor"
+  $WorkingDir = "%systemroot%\system32"
+  
+  $ScheduledAction = New-ScheduledTaskAction –Execute $Task -WorkingDirectory $WorkingDir -Argument $Argument
+  $ScheduledTrigger = @()
+  $ScheduledTrigger += New-ScheduledTaskTrigger -Daily -At 07:00
+  $ScheduledTrigger += New-ScheduledTaskTrigger -Daily -At 12:00
+  $ScheduledSettings = New-ScheduledTaskSettingsSet -Compatibility V1 -DontStopOnIdleEnd -ExecutionTimeLimit (New-TimeSpan -Days 3) -Priority 5
+  $ScheduledTask = New-ScheduledTask -Action $ScheduledAction -Trigger $ScheduledTrigger -Settings $ScheduledSettings
+  Register-ScheduledTask $TaskName -InputObject $ScheduledTask -User "NT AUTHORITY\SYSTEM"
+}
+
 #All done! 
 Write-Host -BackgroundColor Black -ForegroundColor Green "---------"
 Write-Host -BackgroundColor Black -ForegroundColor Green "All done!"
